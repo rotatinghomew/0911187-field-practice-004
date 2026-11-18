@@ -1,20 +1,8 @@
 [
-  {
-    "id": "sample-1",
-    "period": "2026-S1",
-    "group": "A",
-    "value": 2
-  },
-  {
-    "id": "sample-2",
-    "period": "2026-S1",
-    "group": "A",
-    "value": null
-  },
-  {
-    "id": "sample-3",
-    "period": "2026-S2",
-    "group": "B",
-    "value": 4
-  }
+  {"id":"issue-1","project_id":"grid-load","kind":"field_problem","date":"2026-02-02","text":"峰时负荷预测偏差"},
+  {"id":"assumption-1","project_id":"grid-load","kind":"assumption","date":"2026-02-04","text":"检修窗口内数据代表常态"},
+  {"id":"model-1","project_id":"grid-load","kind":"model","date":"2026-02-20","version":"m-1"},
+  {"id":"feedback-1","project_id":"grid-load","kind":"feedback","date":"2026-03-01","condition":"计划检修"},
+  {"id":"trial-1","project_id":"grid-load","kind":"trial","date":"2026-03-02","version":"m-1","condition":"计划检修","result":7.1},
+  {"id":"trial-2","project_id":"grid-load","kind":"trial","date":"2026-03-18","version":"m-2","condition":"日常运行","result":2.4}
 ]

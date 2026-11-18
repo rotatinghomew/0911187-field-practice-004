@@ -1,4 +1,4 @@
-"""合成业务记录的读取和基础校验。"""
+"""读取现场问题、方案版本与试用证据。"""
 
 import json
 from pathlib import Path
@@ -11,10 +11,14 @@ def load_records(path):
     records = []
     seen = set()
     for position, record in enumerate(payload):
-        if not isinstance(record, dict) or not record.get("id"):
-            raise ValueError(f"第 {position + 1} 条记录缺少 id")
+        if not isinstance(record, dict) or not record.get("id") or not record.get("project_id"):
+            raise ValueError(f"第 {position + 1} 条实践记录缺少 id 或 project_id")
         if record["id"] in seen:
             raise ValueError(f"重复记录标识：{record['id']}")
         seen.add(record["id"])
+        if record.get("kind") not in {"field_problem", "assumption", "model", "feedback", "trial"}:
+            raise ValueError(f"记录 {record['id']} 的 kind 无效")
+        if record["kind"] in {"model", "trial"} and not record.get("version"):
+            raise ValueError(f"记录 {record['id']} 缺少方案版本")
         records.append(dict(record))
     return records

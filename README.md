@@ -1,17 +1,7 @@
-# 能源工程实践
+# 工程实践证据分析
 
-工程实践记录现场问题、学生参与和外部验证。
+整理能源工程实践中的现场问题、建模假设、方案版本、工程师反馈与试用结果，帮助区分仿真产出和适用于现场工况的证据。
 
-## 数据约定
+输入是本地合成 UTF-8 JSON 数组，记录以 `id` 和 `project_id` 关联。`kind` 支持 `field_problem`、`assumption`、`model`、`feedback`、`trial`；模型和试用记录须包含版本。反馈中的 `condition` 用于标出会限制试用解释的现场条件。报告能识别当前可用试用证据，但尚未保存评审提交时的方案及证据快照。
 
-应用使用本地合成记录，输入为 UTF-8 JSON。每条记录都应有稳定的业务标识；日期采用 ISO 8601 格式。缺失值表示未观察到，不解释为数值零。输入校验、领域整理和结果汇总彼此分离，调用方可通过 Python API 使用。
-
-## 运行与测试
-
-需要 Python 3.11 或更新版本，不依赖外部服务。执行 `python -m unittest discover -s tests -v` 运行测试。将 `src` 加入 `PYTHONPATH` 后可导入 `field_practice`；核心示例见 `examples/sample.json`。
-
-## 目录
-
-- `src/field_practice/`：记录读取、领域计算及结果汇总。
-- `examples/`：本地合成数据。
-- `tests/`：输入边界与当前业务口径测试。
+需要 Python 3.11 或更新版本，不依赖外部服务。运行 `PYTHONPATH=src python -m unittest discover -s tests -v` 执行测试。`field_practice.facts` 负责事件校验，`field_practice.field_conditions.usable_trials` 判断工况适用性，`field_practice.analysis` 追踪问题到试用的项目链路，`field_practice.reports` 生成带来源修订号的汇总。示例见 `examples/sample.json`。
